@@ -2,6 +2,7 @@ import React,{ useState } from 'react'
 import foodData from './data/food_data.json';
 import SearchPanel from './components/SearchPanel'
 import ResultsList from './components/ResultsList'
+import CachedFoods from './components/CachedFoods';
 import FoodItem from './components/FoodItem'
 import WarningMessage from './components/WarningMessage'
 
@@ -48,6 +49,7 @@ function App() {
         onSearch={handleSearch}
         clear={handleClear}
       />
+      <CachedFoods/>
       {showWarning && <WarningMessage message={showWarning}/>}
       {hasSearched && <ResultsList results={results} length={resultsLength} actualLength={results.length}/>}
     </div>
