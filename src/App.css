@@ -1,0 +1,13 @@
+body{
+    background-color: lightblue;
+}
+.app-container{
+    font-family: "Monaco",monospace;
+}
+h1{
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}

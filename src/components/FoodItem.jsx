@@ -1,12 +1,14 @@
+import './FoodItem.css'
+
 function FoodItem(props) {
-    const servings = parseFloat(props.food.servings) || 0;
+    const servings = props.isCached? parseFloat(props.food.servings) || 0 : 1;
     const calculatedCalories = Math.round(props.food.Calories * servings);
 
     return (
         <li className="food-item">
             <div>
                 <p className="food-name">{props.food.Display_Name}</p>
-                {!props.isCached && <p className="portion">One Serving: {props.food.Portion_Amount + " "}
+                {<p className="portion">One Serving: {props.food.Portion_Amount + " "}
                     {props.food.Portion_Display_Name}</p>}
             </div>
             <div className="calories-section">
@@ -22,7 +24,7 @@ function FoodItem(props) {
                             // The value is now whatever is in the state, including an empty string
                             value={props.food.servings}
                             onChange={props.onServingChange}
-                            placeholder="Input a number:"
+                            placeholder="0"
                             min="0"
                             step="0.1"
                         />

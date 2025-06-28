@@ -1,6 +1,6 @@
 import React from 'react';
 import FoodItem from './FoodItem';
-
+import './CachedFoods.css';
 function CachedFoods({ cache, onRemove, onServingChange }) {
 
   const totalCalories = cache.reduce((total, food) => {
@@ -10,7 +10,7 @@ function CachedFoods({ cache, onRemove, onServingChange }) {
 
   return (
     <div className="cached-foods">
-      <h2>Food List ({totalCalories} cal)</h2>
+      <h2 className="food-list-title">Food List ({totalCalories} cal)</h2>
       <ul>
         {cache.length > 0 ? (
           cache.map((food) => (
@@ -21,6 +21,7 @@ function CachedFoods({ cache, onRemove, onServingChange }) {
               onRemove={() => onRemove(food.uniqueId)}
               // Pass the raw event object up
               onServingChange={(e) => onServingChange(food.uniqueId, e.target.value)}
+              className="cached-food"
             />
           ))
         ) : (

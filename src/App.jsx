@@ -4,6 +4,7 @@ import SearchPanel from './components/SearchPanel';
 import ResultsList from './components/ResultsList';
 import CachedFoods from './components/CachedFoods';
 import WarningMessage from './components/WarningMessage';
+import './App.css';
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");

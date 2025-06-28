@@ -1,0 +1,47 @@
+.input-box{
+    font-size: 1rem;
+    background-color: hsl(0, 0%, 83%);
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+    font-family: "Monaco",monospace;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+.input-box:hover{
+    background-color: hsl(0,0%,73%);
+}
+button{
+    transition: background-color 0.5s ease;
+}
+.search-button{
+    font-size: 1rem;
+    font-family: "Monaco",monospace;
+    text-align: center;
+    background-color:hsl(240, 100%, 67%);
+    border: none;
+    border-radius: 10px;
+    margin-right: 5px;
+    padding: 5px 8px;
+    color: hsl(0, 0%, 100%);
+}
+.search-button:hover{
+    background-color:hsl(240, 100%, 27%);
+}
+.clear-button{
+    font-size: 1rem;
+    font-family: "Monaco",monospace;
+    text-align: center;
+    background-color:hsl(0, 100%, 50%);
+    border: none;
+    border-radius: 10px;
+    margin-right: 5px;
+    padding: 5px 8px;
+    color: white;
+}
+.clear-button:hover{
+    background-color:hsl(0, 100%, 27%);
+}
+

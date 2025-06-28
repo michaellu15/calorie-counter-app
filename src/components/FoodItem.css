@@ -1,0 +1,48 @@
+li{
+    list-style: none;
+}
+.add-button{
+    font-size: 1rem;
+    font-family: "Monaco",monospace;
+    text-align: center;
+    background-color:hsl(125,47%,54%);
+    border: none;
+    border-radius: 10px;
+    margin-right: 5px;
+    padding: 5px 8px;
+    color: white;
+}
+.add-button:hover{
+    background-color:hsl(125,47%,34%);
+}
+.remove-button{
+    font-size: 1rem;
+    font-family: "Monaco",monospace;
+    text-align: center;
+    background-color:hsl(10,90%,50%);
+    border: none;
+    border-radius: 10px;
+    margin-right: 5px;
+    padding: 5px 8px;
+    color: white;
+}
+.remove-button:hover{
+    background-color:hsl(10,90%,30%);
+}
+.servings-input{
+    font-size: 1rem;
+    background-color: hsl(0, 0%, 83%);
+    padding-left: 5px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    margin-right: 1px;
+    font-family: "Monaco",monospace;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+    width: 30px;
+    text-align: center;
+}
+.servings-input:hover{
+    background-color: hsl(0,0%,73%);
+}
