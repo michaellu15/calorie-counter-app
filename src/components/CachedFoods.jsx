@@ -1,10 +1,34 @@
-import React,{useState} from 'react'
-function CachedFoods(){
-    
-    return(
-        <div className="cached-foods">
+import React from 'react';
+import FoodItem from './FoodItem';
 
-        </div>
-    );
+function CachedFoods({ cache, onRemove, onServingChange }) {
+
+  const totalCalories = cache.reduce((total, food) => {
+    const servings = parseFloat(food.servings) || 0;
+    return total + (Math.round(food.Calories) * servings);
+  }, 0);
+
+  return (
+    <div className="cached-foods">
+      <h2>Food List ({totalCalories} cal)</h2>
+      <ul>
+        {cache.length > 0 ? (
+          cache.map((food) => (
+            <FoodItem
+              key={food.uniqueId}
+              food={food}
+              isCached={true}
+              onRemove={() => onRemove(food.uniqueId)}
+              // Pass the raw event object up
+              onServingChange={(e) => onServingChange(food.uniqueId, e.target.value)}
+            />
+          ))
+        ) : (
+          <li className="no-results">Your food list is empty.</li>
+        )}
+      </ul>
+    </div>
+  );
 }
-export default CachedFoods
+
+export default CachedFoods;
