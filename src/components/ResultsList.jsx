@@ -1,5 +1,5 @@
 import FoodItem from "./FoodItem";
-import './ResultsList.css'
+
 function ResultsList(props) {
     return (
         <>

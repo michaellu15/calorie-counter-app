@@ -58,19 +58,25 @@ function App() {
   return (
     <div className="app-container">
       <h1>Calorie Counter</h1>
-      <SearchPanel
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onSearch={handleSearch}
-        clear={handleClear}
-      />
-      <CachedFoods
-        cache={cache}
-        onRemove={removeFromCache}
-        onServingChange={handleServingChange}
-      />
-      {showWarning && <WarningMessage message={showWarning} />}
-      {hasSearched && <ResultsList results={results} length={resultsLength} actualLength={results.length} onAdd={addToCache} />}
+      <div className="main-layout">
+        <div className="search-section">
+          <SearchPanel
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            onSearch={handleSearch}
+            clear={handleClear}
+          />
+          {showWarning && <WarningMessage message={showWarning} />}
+          {hasSearched && <ResultsList results={results} length={resultsLength} actualLength={results.length} onAdd={addToCache} />}
+        </div>
+        <div className="list-section">
+          <CachedFoods
+            cache={cache}
+            onRemove={removeFromCache}
+            onServingChange={handleServingChange}
+          />
+        </div>
+      </div>
     </div>
   );
 }

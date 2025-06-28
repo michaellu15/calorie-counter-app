@@ -1,4 +1,4 @@
-import './SearchPanel.css'
+
 function SearchPanel(props) {
     function handleInputChange(event) {
         props.setSearchTerm(event.target.value);

@@ -1,6 +1,6 @@
 import React from 'react';
 import FoodItem from './FoodItem';
-import './CachedFoods.css';
+
 function CachedFoods({ cache, onRemove, onServingChange }) {
 
   const totalCalories = cache.reduce((total, food) => {

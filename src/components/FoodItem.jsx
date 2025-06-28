@@ -1,4 +1,4 @@
-import './FoodItem.css'
+
 
 function FoodItem(props) {
     const servings = props.isCached? parseFloat(props.food.servings) || 0 : 1;
@@ -6,7 +6,7 @@ function FoodItem(props) {
 
     return (
         <li className="food-item">
-            <div>
+            <div className="food-item-info">
                 <p className="food-name">{props.food.Display_Name}</p>
                 {<p className="portion">One Serving: {props.food.Portion_Amount + " "}
                     {props.food.Portion_Display_Name}</p>}
