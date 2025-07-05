@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import foodData from './data/food_data.json';
 import SearchPanel from './components/SearchPanel';
 import ResultsList from './components/ResultsList';
 import CachedFoods from './components/CachedFoods';
@@ -13,26 +12,49 @@ function App() {
   const [hasSearched, setHasSearched] = useState(false);
   const [resultsLength, setLength] = useState(0);
   const [cache, setCache] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const limit = 25;
 
-  function handleSearch(term) {
-    const trimmedTerm = term.trim();
-    if (!trimmedTerm) {
-      setShowWarning("Please enter a search term");
+  const handleSearch = async(term) =>{
+    if(!term.trim()){
+      setShowWarning('Please enter a search term. ');
       setResults([]);
-      setHasSearched(false);
-    } else {
-      setShowWarning("");
-      const lowercasedTerm = trimmedTerm.toLowerCase();
-      const matchedResults = foodData.Food_Display_Table.filter(food => {
-        const displayName = food.Display_Name || food.display_name;
-        return displayName && displayName.toLowerCase().includes(lowercasedTerm);
-      });
-      setLength(matchedResults.length);
-      setResults(matchedResults.slice(0, 25));
-      setHasSearched(true);
+      return;
     }
-  }
+    setIsLoading(true);
+    setHasSearched(true);
+    try{
+      const res = await fetch(`http://localhost:5000/api/foods?query=${term}&limit=${limit}`);
+      const data = await res.json();
+      if(data.results.length==0){
+        setShowWarning('No matching foods found.');
+      }
+      else{
+        setShowWarning('')
+      }
+      setResults(data.results);
+      setLength(data.total);
+    }
+    catch(error){
+      console.error('Search failed:', error);
+      setShowWarning('Server error. ');
+    } finally{
+      setIsLoading(false);
+    }
+  };
 
+  const handleLoadMore = async () => {
+    setIsLoading(true); 
+    try {
+      const res = await fetch(`http://localhost:5000/api/foods?query=${searchTerm}&offset=${results.length}&limit=${limit}`);
+      const data = await res.json();
+      setResults(prev => [...prev, ...data.results]);
+    } catch (error) {
+      console.error('Failed to load more:', error);
+    } finally{
+      setIsLoading(false); 
+    }
+  };
   function handleClear() {
     setSearchTerm("");
     setResults([]);
@@ -66,8 +88,25 @@ function App() {
             onSearch={handleSearch}
             clear={handleClear}
           />
-          {showWarning && <WarningMessage message={showWarning} />}
-          {hasSearched && <ResultsList results={results} length={resultsLength} actualLength={results.length} onAdd={addToCache} />}
+          {isLoading && <p>Loading...</p>}
+          {showWarning && 
+          <WarningMessage 
+            message={showWarning} />}
+          {hasSearched && (
+            <>
+              <ResultsList
+                results={results}
+                length={resultsLength}
+                actualLength={results.length}
+                onAdd={addToCache}
+              />
+              {results.length < resultsLength && (
+                <button onClick={handleLoadMore} className="load-more-btn">
+                  Load More
+                </button>
+              )}
+            </>
+          )}
         </div>
         <div className="list-section">
           <CachedFoods

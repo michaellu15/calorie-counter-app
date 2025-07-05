@@ -201,3 +201,17 @@ button {
 .warning-message {
     background-color: hsla(0, 77%, 76%, 0.973);
 }
+.load-more-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: hsl(211, 100%, 50%);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.load-more-btn:hover {
+  background-color: hsl(211, 100%, 35%);
+}
