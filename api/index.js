@@ -1,10 +1,12 @@
 import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
-
+import path from 'path'
 const app = express();
 
-const rawData = fs.readFileSync('./food_data.json','utf-8');
+const jsonPath = path.join(process.cwd(), 'api', 'food_data.json');
+const rawData = fs.readFileSync(jsonPath, 'utf-8');
+
 const parsedData = JSON.parse(rawData);
 const initialFoodData = parsedData.Food_Display_Table;
 const validFoodData = initialFoodData.filter(item => item && item.Food_Code);
@@ -25,6 +27,4 @@ app.get('/api/foods', (req, res) => {
     res.status(200).json({ results: topRes, total: filtered.length })
 });
 
-app.listen(5000, () => {
-    console.log(`Server listening on https://localhost:5000`)
-})
+export default app;

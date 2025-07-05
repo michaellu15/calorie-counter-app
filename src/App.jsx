@@ -24,7 +24,7 @@ function App() {
     setIsLoading(true);
     setHasSearched(true);
     try{
-      const res = await fetch(`http://localhost:5000/api/foods?query=${term}&limit=${limit}`);
+      const res = await fetch(`/api/foods?query=${term}&limit=${limit}`);
       const data = await res.json();
       if(data.results.length==0){
         setShowWarning('No matching foods found.');
@@ -46,7 +46,7 @@ function App() {
   const handleLoadMore = async () => {
     setIsLoading(true); 
     try {
-      const res = await fetch(`http://localhost:5000/api/foods?query=${searchTerm}&offset=${results.length}&limit=${limit}`);
+      const res = await fetch(`/api/foods?query=${searchTerm}&offset=${results.length}&limit=${limit}`);
       const data = await res.json();
       setResults(prev => [...prev, ...data.results]);
     } catch (error) {
