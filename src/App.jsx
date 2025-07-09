@@ -15,44 +15,44 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const limit = 25;
 
-  const handleSearch = async(term) =>{
-    if(!term.trim()){
+  const handleSearch = async (term) => {
+    if (!term.trim()) {
       setShowWarning('Please enter a search term. ');
       setResults([]);
       return;
     }
     setIsLoading(true);
     setHasSearched(true);
-    try{
+    try {
       const res = await fetch(`/api/foods?query=${term}&limit=${limit}`);
       const data = await res.json();
-      if(data.results.length==0){
+      if (data.results.length == 0) {
         setShowWarning('No matching foods found.');
       }
-      else{
+      else {
         setShowWarning('')
       }
       setResults(data.results);
       setLength(data.total);
     }
-    catch(error){
+    catch (error) {
       console.error('Search failed:', error);
       setShowWarning('Server error. ');
-    } finally{
+    } finally {
       setIsLoading(false);
     }
   };
 
   const handleLoadMore = async () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     try {
       const res = await fetch(`/api/foods?query=${searchTerm}&offset=${results.length}&limit=${limit}`);
       const data = await res.json();
       setResults(prev => [...prev, ...data.results]);
     } catch (error) {
       console.error('Failed to load more:', error);
-    } finally{
-      setIsLoading(false); 
+    } finally {
+      setIsLoading(false);
     }
   };
   function handleClear() {
@@ -63,8 +63,16 @@ function App() {
   }
 
   function addToCache(food) {
-    const newCachedItem = { ...food, uniqueId: Date.now(), servings: 1 };
-    setCache([...cache, newCachedItem]);
+    const existingFood = cache.find((item) => item.Food_Code === food.Food_Code);
+    if (existingFood) {
+      const newServingValue = (existingFood.servings || 0) + 1;
+      handleServingChange(existingFood.uniqueId, newServingValue)
+    }
+    else {
+      const newCachedItem = { ...food, uniqueId: Date.now(), servings: 1 };
+      setCache([...cache, newCachedItem]);
+    }
+
   }
 
   function removeFromCache(uniqueId) {
@@ -89,9 +97,9 @@ function App() {
             clear={handleClear}
           />
           {isLoading && <p>Loading...</p>}
-          {showWarning && 
-          <WarningMessage 
-            message={showWarning} />}
+          {showWarning &&
+            <WarningMessage
+              message={showWarning} />}
           {hasSearched && (
             <>
               <ResultsList
