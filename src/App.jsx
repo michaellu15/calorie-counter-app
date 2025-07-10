@@ -19,6 +19,7 @@ function App() {
     if (!term.trim()) {
       setShowWarning('Please enter a search term. ');
       setResults([]);
+      setLength(0);
       return;
     }
     setIsLoading(true);
