@@ -26,12 +26,7 @@ function App() {
     try {
       const res = await fetch(`/api/foods?query=${term}&limit=${limit}`);
       const data = await res.json();
-      if (data.results.length == 0) {
-        setShowWarning('No matching foods found.');
-      }
-      else {
-        setShowWarning('')
-      }
+      setShowWarning('')
       setResults(data.results);
       setLength(data.total);
     }
